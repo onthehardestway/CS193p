@@ -25,6 +25,7 @@
 		B99DC63C195ADB9F00BFCC3D /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = B99DC636195ADB9F00BFCC3D /* Deck.m */; };
 		B99DC63D195ADB9F00BFCC3D /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = B99DC638195ADB9F00BFCC3D /* PlayingCard.m */; };
 		B99DC63E195ADB9F00BFCC3D /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = B99DC63A195ADB9F00BFCC3D /* PlayingCardDeck.m */; };
+		B9A8DFB41964440700108CCB /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A8DFB31964440700108CCB /* CardMatchingGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		B99DC638195ADB9F00BFCC3D /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCard.m; sourceTree = "<group>"; };
 		B99DC639195ADB9F00BFCC3D /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardDeck.h; sourceTree = "<group>"; };
 		B99DC63A195ADB9F00BFCC3D /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
+		B9A8DFB21964440700108CCB /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGame.h; sourceTree = "<group>"; };
+		B9A8DFB31964440700108CCB /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardMatchingGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,8 @@
 				B99DC636195ADB9F00BFCC3D /* Deck.m */,
 				B99DC639195ADB9F00BFCC3D /* PlayingCardDeck.h */,
 				B99DC63A195ADB9F00BFCC3D /* PlayingCardDeck.m */,
+				B9A8DFB21964440700108CCB /* CardMatchingGame.h */,
+				B9A8DFB31964440700108CCB /* CardMatchingGame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				B99DC63C195ADB9F00BFCC3D /* Deck.m in Sources */,
 				B99DC5A7195ABC7000BFCC3D /* CardGameAppDelegate.m in Sources */,
 				B99DC5AD195ABC7100BFCC3D /* CardGameViewController.m in Sources */,
+				B9A8DFB41964440700108CCB /* CardMatchingGame.m in Sources */,
 				B99DC63E195ADB9F00BFCC3D /* PlayingCardDeck.m in Sources */,
 				B99DC5A3195ABC7000BFCC3D /* main.m in Sources */,
 				B99DC63B195ADB9F00BFCC3D /* Card.m in Sources */,
