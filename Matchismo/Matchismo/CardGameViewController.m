@@ -7,7 +7,6 @@
 //
 
 #import "CardGameViewController.h"
-#import "Card.h"
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
@@ -22,9 +21,14 @@
 - (Deck *)deck
 {
     if (_deck == nil) {
-        _deck = [[PlayingCardDeck alloc] init];
+        _deck = [self createDeck];
     }
     return _deck;
+}
+
+- (Deck *)createDeck
+{
+    return [[PlayingCardDeck alloc] init];
 }
 
 - (void)setFlipCount:(NSInteger)flipCount
