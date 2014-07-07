@@ -14,18 +14,29 @@
 {
     NSInteger score = 0;
     
-    if ([otherCards count] == 1) {
-        id card = [otherCards firstObject];
-        if ([card isKindOfClass:[PlayingCard class]]) {
-            PlayingCard *otherCard = card;
-            if (otherCard.rank == self.rank) {
-                score = 4;
-            } else if ([otherCard.suit isEqualToString:self.suit]) {
-                score = 1;
-            }
-        }
+    for (PlayingCard *card in otherCards) {
+        score += [self matchAgainstCard:card];
     }
     
+    return score;
+}
+
+static const NSInteger RANK_MATCH_SCORE = 4;
+static const NSInteger SUIT_MATCH_SCORE = 1;
+
+- (NSInteger)matchAgainstCard:(PlayingCard *)card
+{
+    NSInteger score = 0;
+
+    if ([card isKindOfClass:[PlayingCard class]]) {
+        PlayingCard *otherCard = card;
+        if (otherCard.rank == self.rank) {
+            score = RANK_MATCH_SCORE;
+        } else if ([otherCard.suit isEqualToString:self.suit]) {
+            score = SUIT_MATCH_SCORE;
+        }
+    }
+
     return score;
 }
 

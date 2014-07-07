@@ -13,6 +13,8 @@
 @interface CardGameViewController () <UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
+@property (weak, nonatomic) IBOutlet UILabel *gameDescription;
 
 @property (strong, nonatomic) CardMatchingGame *game;
 @end
@@ -26,7 +28,9 @@
 
 - (CardMatchingGame *)generateNewGame
 {
-    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    game.mode = self.modeSegmentedControl.selectedSegmentIndex + 2;
+    return game;
 }
 
 - (CardMatchingGame *)game
@@ -41,6 +45,14 @@
 {
     self.game = [self generateNewGame];
     [self updateUI];
+    self.modeSegmentedControl.enabled = YES;
+    self.gameDescription.text = @"";
+}
+
+- (IBAction)modeValueChanged:(UISegmentedControl *)sender
+{
+    // game at least match 2 cards, but selectedSegmentIndex start from 0
+    self.game.mode = sender.selectedSegmentIndex + 2;
 }
 
 - (IBAction)touchResetButton:(UIButton *)sender
@@ -67,6 +79,9 @@
     NSInteger chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateUI];
+    if (self.modeSegmentedControl.enabled) {
+        self.modeSegmentedControl.enabled = NO;
+    }
 }
 
 - (void)updateUI
@@ -80,6 +95,7 @@
         
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
+    self.gameDescription.text = self.game.gameDescription;
 }
 
 - (NSString *)titleForCard:(Card *)card
