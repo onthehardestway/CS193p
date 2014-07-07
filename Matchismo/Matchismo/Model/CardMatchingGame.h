@@ -18,5 +18,6 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readonly) NSString *gameDescription;
+@property (nonatomic, strong, readonly) NSMutableArray *history; // of gameDescription
 @property (nonatomic) NSInteger mode;
 @end

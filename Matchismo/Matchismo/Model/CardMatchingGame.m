@@ -10,8 +10,9 @@
 
 @interface CardMatchingGame ()
 @property (nonatomic, readwrite) NSInteger score;
-@property (strong, nonatomic) NSMutableArray *cards;  // of Card
+@property (nonatomic, strong) NSMutableArray *cards;  // of Card
 @property (nonatomic, readwrite) NSString *gameDescription;
+@property (nonatomic, strong, readwrite) NSMutableArray *history; // of gameDescription
 @end
 
 @implementation CardMatchingGame
@@ -21,6 +22,20 @@
         _cards = [[NSMutableArray alloc] init];
     }
     return _cards;
+}
+
+- (NSMutableArray *)history
+{
+    if (_history == nil) {
+        _history = [[NSMutableArray alloc] init];
+    }
+    return _history;
+}
+
+- (void)setGameDescription:(NSString *)gameDescription
+{
+    _gameDescription = gameDescription;
+    [self.history addObject:_gameDescription];
 }
 
 - (instancetype)initWithCardCount:(NSUInteger)count
@@ -61,10 +76,6 @@ static const NSInteger COST_TO_CHOOSE = 1;
             card.chosen = NO;
             self.gameDescription = [NSString stringWithFormat:@"%@", [targetCards componentsJoinedByString:@" "]];
         } else {
-            self.score -= COST_TO_CHOOSE;
-            card.chosen = YES;
-            self.gameDescription = [NSString stringWithFormat:@"%@ %@", [targetCards componentsJoinedByString:@" "], card.contents];
-            
             // match against other chosen cards according to mode
             // ONLY when number of chosen cards == self.mode
             // there can be a match
@@ -84,7 +95,12 @@ static const NSInteger COST_TO_CHOOSE = 1;
                     }
                     self.gameDescription = [NSString stringWithFormat:@"%@ %@ don’t match! %d point penalty!", [targetCards componentsJoinedByString:@" "], card.contents, MISMATCH_PENALTY];
                 }                
+            } else {
+                self.gameDescription = [NSString stringWithFormat:@"%@ %@", [targetCards componentsJoinedByString:@" "], card.contents];
             }
+
+            self.score -= COST_TO_CHOOSE;
+            card.chosen = YES;
         }
     }
 }

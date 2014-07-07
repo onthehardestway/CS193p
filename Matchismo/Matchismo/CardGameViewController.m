@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *gameDescription;
+@property (weak, nonatomic) IBOutlet UISlider *historySilder;
 
 @property (strong, nonatomic) CardMatchingGame *game;
 @end
@@ -44,9 +45,21 @@
 - (void)startNewGame
 {
     self.game = [self generateNewGame];
-    [self updateUI];
     self.modeSegmentedControl.enabled = YES;
     self.gameDescription.text = @"";
+    self.historySilder.enabled = NO;
+    [self updateUI];
+}
+
+- (IBAction)historySliderValueChange:(UISlider *)sender
+{
+    NSInteger currentValue = (NSInteger)sender.value;
+    if (currentValue < sender.maximumValue) {
+        self.gameDescription.enabled = NO;
+    } else {
+        self.gameDescription.enabled = YES;
+    }
+    self.gameDescription.text = [self.game.history objectAtIndex:currentValue];
 }
 
 - (IBAction)modeValueChanged:(UISegmentedControl *)sender
@@ -78,10 +91,13 @@
 {
     NSInteger chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
     if (self.modeSegmentedControl.enabled) {
         self.modeSegmentedControl.enabled = NO;
     }
+    if (!self.historySilder.enabled) {
+        self.historySilder.enabled = YES;
+    }
+    [self updateUI];
 }
 
 - (void)updateUI
@@ -96,6 +112,9 @@
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
     self.gameDescription.text = self.game.gameDescription;
+    self.historySilder.maximumValue = [self.game.history count] > 0 ? [self.game.history count] - 1 : 0;
+    self.historySilder.value = self.historySilder.maximumValue;
+    self.gameDescription.enabled = YES;
 }
 
 - (NSString *)titleForCard:(Card *)card
