@@ -14,10 +14,30 @@
 {
     NSInteger score = 0;
     
-    for (PlayingCard *card in otherCards) {
-        score += [self matchAgainstCard:card];
+    // if type check failed, return 0
+    for (id obj in otherCards) {
+        if (![obj isKindOfClass:[PlayingCard class]]) {
+            return score;
+        }
     }
     
+    // get all cards
+    NSMutableArray *allCards = [NSMutableArray arrayWithArray:otherCards];
+    [allCards addObject:self];
+
+    // calculate total score
+    while ([allCards count] > 0) {
+        // match between the first card and the rest cards
+        PlayingCard *firstCard = [allCards firstObject];
+
+        // remove first card
+        [allCards removeObjectAtIndex:0];
+
+        for (PlayingCard *card in allCards) {
+            score += [firstCard matchAgainstCard:card];
+        }
+    }
+
     return score;
 }
 
